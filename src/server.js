@@ -34,7 +34,7 @@ app.get('/les-grosses-tetes.xml', function (req, res, next) {
 
         for (let i = 0; i < json.rss.channel.item.length; i++) {
             console.log(json.rss.channel.item[i].title);
-            if (json.rss.channel.item[i].title.$t.indexOf("Partie 1") > 0) {
+            if (json.rss.channel.item[i].title.$t.indexOf("Partie 2") > 0) {
                 // console.log(json.rss.channel.item[i].pubDate);
                 let pubDate = json.rss.channel.item[i].pubDate.$t;
                 json.rss.channel.item[i].pubDate.$t = pubDate.replace(regex, '23:50');
