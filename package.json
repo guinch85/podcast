@@ -1,0 +1,26 @@
+{
+  "name": "podcast",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/start.js",
+  "scripts": {
+    "start": "node src/start.js"
+  },
+  "dependencies": {
+    "request": "^2.88.0",
+    "express": "^4.17.1",
+    "express-xml-bodyparser": "^0.3.0",
+    "xml2json": "^0.12.0",
+    "js2xml": "^1.0.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guinch85/podcast.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guinch85/podcast/issues"
+  },
+  "homepage": "https://github.com/guinch85/podcast#readme"
+}
