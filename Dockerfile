@@ -1,4 +1,4 @@
-FROM keymetrics/pm2:10-slim
+FROM keymetrics/pm2:latest-stretch
 
 # Bundle APP files
 COPY ./src src/
