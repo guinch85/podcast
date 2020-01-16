@@ -1,5 +1,5 @@
 {
-  "name": "Podcast",
+  "name": "podcast",
   "script": "src/index.js",
   "instances": "1",
   "env": {
