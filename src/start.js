@@ -1,6 +1,3 @@
-/**
- * Created by chateaup on 20/03/2017.
- */
 let child_process = require('child_process');
 
 process.env.UV_THREADPOOL_SIZE = 20;

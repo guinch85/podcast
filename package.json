@@ -7,7 +7,7 @@
     "start": "node src/start.js"
   },
   "dependencies": {
-    "request": "^2.88.0",
+    "request": "^2.88.2",
     "express": "^4.17.1",
     "express-xml-bodyparser": "^0.3.0",
     "xml2json": "^0.12.0",
