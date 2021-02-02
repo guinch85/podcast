@@ -39,7 +39,7 @@ app.get('/les-grosses-tetes.xml', function (req, res, next) {
         };
         let xml = Parser.toXml(stringify, toXmlOptions);
 
-        console.log(xml);
+        // console.log(xml);
         res.header('Content-Type', 'text/xml');
         res.send(xml);
     });
@@ -62,7 +62,32 @@ app.get('/laurent-gerra.xml', function (req, res, next) {
         };
         let xml = Parser.toXml(stringify, toXmlOptions);
 
-        console.log(xml);
+        // console.log(xml);
+        res.header('Content-Type', 'text/xml');
+        res.send(xml);
+    });
+});
+
+app.get('/revue-de-presque.xml', function (req, res, next) {
+    request('https://www.europe1.fr/rss/podcasts/revue-de-presque.xml', function (error, response, body) {
+        let json = JSON.parse(Parser.toJson(body, {reversible: true}));
+        for (let i = 0; i < json.rss.channel.item.length; i++) {
+            console.log(Object.keys(json.rss.channel.item[i]));
+            console.log(json.rss.channel.item[i]['itunes:duration'].$t);
+            if (json.rss.channel.item[i].title.$t.indexOf("BEST") >= 0 ||
+                json.rss.channel.item[i]['itunes:duration'].$t < 400) {
+                delete json.rss.channel.item[i];
+            }
+        }
+
+        let stringify = JSON.stringify(json);
+        let toXmlOptions = {
+            sanitize: true,
+            ignoreNull: true
+        };
+        let xml = Parser.toXml(stringify, toXmlOptions);
+
+        // console.log(xml);
         res.header('Content-Type', 'text/xml');
         res.send(xml);
     });
