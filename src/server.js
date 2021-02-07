@@ -50,6 +50,7 @@ app.get('/laurent-gerra.xml', function (req, res, next) {
         let json = JSON.parse(Parser.toJson(body, {reversible: true}));
         for (let i = 0; i < json.rss.channel.item.length; i++) {
             if (json.rss.channel.item[i].title.$t.indexOf("Best") >= 0 ||
+                json.rss.channel.item[i].title.$t.indexOf("best") >= 0 ||
                 json.rss.channel.item[i].title.$t.indexOf("BONUS") >= 0) {
                 delete json.rss.channel.item[i];
             }
