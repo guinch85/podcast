@@ -26,7 +26,11 @@ app.get('/les-grosses-tetes.xml', function (req, res, next) {
     request('https://www.rtl.fr/podcast/les-grosses-tetes.xml', function (error, response, body) {
         let json = JSON.parse(Parser.toJson(body, {reversible: true}));
         for (let i = 0; i < json.rss.channel.item.length; i++) {
-            if (json.rss.channel.item[i].title.$t.indexOf("Best") >= 0 ||
+            //console.log(json.rss.channel.item[i]);
+            let duration = getDuration(json.rss.channel.item[i]['itunes:duration'].$t);
+            //console.log("duration = " + duration);
+            if (duration < 3600 ||
+                json.rss.channel.item[i].title.$t.indexOf("Best") >= 0 ||
                 json.rss.channel.item[i].title.$t.indexOf("BONUS") >= 0) {
                 delete json.rss.channel.item[i];
             }
@@ -49,7 +53,10 @@ app.get('/laurent-gerra.xml', function (req, res, next) {
     request('https://www.rtl.fr/podcast/laurent-gerra.xml', function (error, response, body) {
         let json = JSON.parse(Parser.toJson(body, {reversible: true}));
         for (let i = 0; i < json.rss.channel.item.length; i++) {
-            if (json.rss.channel.item[i].title.$t.indexOf("Best") >= 0 ||
+            let duration = getDuration(json.rss.channel.item[i]['itunes:duration'].$t);
+
+            if (duration < 300 ||
+                json.rss.channel.item[i].title.$t.indexOf("Best") >= 0 ||
                 json.rss.channel.item[i].title.$t.indexOf("best") >= 0 ||
                 json.rss.channel.item[i].title.$t.indexOf("BONUS") >= 0) {
                 delete json.rss.channel.item[i];
@@ -73,10 +80,11 @@ app.get('/revue-de-presque.xml', function (req, res, next) {
     request('https://www.europe1.fr/rss/podcasts/revue-de-presque.xml', function (error, response, body) {
         let json = JSON.parse(Parser.toJson(body, {reversible: true}));
         for (let i = 0; i < json.rss.channel.item.length; i++) {
-            console.log(Object.keys(json.rss.channel.item[i]));
-            console.log(json.rss.channel.item[i]['itunes:duration'].$t);
-            if (json.rss.channel.item[i].title.$t.indexOf("BEST") >= 0 ||
-                json.rss.channel.item[i]['itunes:duration'].$t < 400) {
+            //console.log(Object.keys(json.rss.channel.item[i]));
+            //console.log(json.rss.channel.item[i]['itunes:duration'].$t);
+            if (json.rss.channel.item[i]['itunes:duration'].$t < 400 ||
+                json.rss.channel.item[i]['itunes:duration'].$t > 1500 ||
+                json.rss.channel.item[i].title.$t.indexOf("BEST") >= 0) {
                 delete json.rss.channel.item[i];
             }
         }
@@ -97,3 +105,17 @@ app.get('/revue-de-presque.xml', function (req, res, next) {
 
 app.listen(port);
 console.log('Listening on port ' + port + '...');
+
+
+function getDuration(strDuration) {
+    let duration = 0;
+    let durationTab = strDuration.split(':');
+    if (durationTab.length === 1) {
+        duration = durationTab[0] * 1;
+    } else if (durationTab.length === 2) {
+        duration = durationTab[0] * 60 + durationTab[1] * 1;
+    } else if (durationTab.length === 3) {
+        duration = durationTab[0] * 60 * 60 + durationTab[1] * 60 + durationTab[0] * 1;
+    }
+    return duration;
+}
