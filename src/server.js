@@ -28,11 +28,13 @@ app.get('/les-grosses-tetes.xml', function (req, res, next) {
         for (let i = 0; i < json.rss.channel.item.length; i++) {
             //console.log(json.rss.channel.item[i]);
             let duration = getDuration(json.rss.channel.item[i]['itunes:duration'].$t);
-            //console.log("duration = " + duration);
-            if (duration < 3600 ||
-                json.rss.channel.item[i].title.$t.indexOf("Best") >= 0 ||
-                json.rss.channel.item[i].title.$t.indexOf("BEST") >= 0 ||
-                json.rss.channel.item[i].title.$t.indexOf("BONUS") >= 0) {
+            // console.log("Title = " + json.rss.channel.item[i]['title'].$t);
+            // console.log("duration = " + duration);
+            if (duration < 3600
+                // json.rss.channel.item[i].title.$t.indexOf("Best") >= 0 ||
+                // json.rss.channel.item[i].title.$t.indexOf("BEST") >= 0 ||
+                // json.rss.channel.item[i].title.$t.indexOf("BONUS") >= 0) {
+            ) {
                 delete json.rss.channel.item[i];
             }
         }
@@ -44,11 +46,13 @@ app.get('/les-grosses-tetes.xml', function (req, res, next) {
         };
         let xml = Parser.toXml(stringify, toXmlOptions);
 
-        // console.log(xml);
+// console.log(xml);
         res.header('Content-Type', 'text/xml');
         res.send(xml);
-    });
-});
+    })
+    ;
+})
+;
 
 app.get('/laurent-gerra.xml', function (req, res, next) {
     request('https://www.rtl.fr/podcast/laurent-gerra.xml', function (error, response, body) {
