@@ -30,10 +30,10 @@ app.get('/les-grosses-tetes.xml', function (req, res, next) {
             let duration = getDuration(json.rss.channel.item[i]['itunes:duration'].$t);
             // console.log("Title = " + json.rss.channel.item[i]['title'].$t);
             // console.log("duration = " + duration);
-            if (duration < 3600
-                // json.rss.channel.item[i].title.$t.indexOf("Best") >= 0 ||
-                // json.rss.channel.item[i].title.$t.indexOf("BEST") >= 0 ||
-                // json.rss.channel.item[i].title.$t.indexOf("BONUS") >= 0) {
+            if (duration < 3600 ||
+                json.rss.channel.item[i].title.$t.indexOf("Best") >= 0 ||
+                json.rss.channel.item[i].title.$t.indexOf("BEST") >= 0 ||
+                json.rss.channel.item[i].title.$t.indexOf("BONUS") >= 0) {
             ) {
                 delete json.rss.channel.item[i];
             }
