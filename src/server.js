@@ -51,8 +51,7 @@ app.get('/les-grosses-tetes.xml', function (req, res, next) {
         res.send(xml);
     })
     ;
-})
-;
+});
 
 app.get('/laurent-gerra.xml', function (req, res, next) {
     request('https://www.rtl.fr/podcast/laurent-gerra.xml', function (error, response, body) {
@@ -106,6 +105,32 @@ app.get('/revue-de-presque.xml', function (req, res, next) {
         res.send(xml);
     });
 });
+
+app.get('/sans-filtre.xml', function (req, res, next) {
+    request('https://feeds.audiomeans.fr/feed/6847967a-7b59-4e52-9c8d-f442b4e37f40.xml', function (error, response, body) {
+        let json = JSON.parse(Parser.toJson(body, {reversible: true}));
+        for (let i = 0; i < json.rss.channel.item.length; i++) {
+            //console.log(Object.keys(json.rss.channel.item[i]));
+            //console.log(json.rss.channel.item[i]['itunes:duration'].$t);
+            if (json.rss.channel.item[i].title.$t.indexOf("Thoen") <= 0) {
+                delete json.rss.channel.item[i];
+            }
+        }
+
+        let stringify = JSON.stringify(json);
+        let toXmlOptions = {
+            sanitize: true,
+            ignoreNull: true
+        };
+        let xml = Parser.toXml(stringify, toXmlOptions);
+
+        // console.log(xml);
+        res.header('Content-Type', 'text/xml');
+        res.send(xml);
+    });
+});
+
+
 
 
 app.listen(port);
