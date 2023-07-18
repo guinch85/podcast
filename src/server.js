@@ -31,8 +31,8 @@ app.get('/les-grosses-tetes.xml', function (req, res, next) {
             // console.log("Title = " + json.rss.channel.item[i]['title'].$t);
             // console.log("duration = " + duration);
             if (duration < 3600 ||
-                json.rss.channel.item[i].title.$t.indexOf("Best") >= 0 ||
-                json.rss.channel.item[i].title.$t.indexOf("BEST") >= 0 ||
+                //json.rss.channel.item[i].title.$t.indexOf("Best") >= 0 ||
+                //json.rss.channel.item[i].title.$t.indexOf("BEST") >= 0 ||
                 json.rss.channel.item[i].title.$t.indexOf("BONUS") >= 0
             ) {
                 delete json.rss.channel.item[i];
