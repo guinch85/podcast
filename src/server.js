@@ -60,8 +60,8 @@ app.get('/laurent-gerra.xml', function (req, res, next) {
             let duration = getDuration(json.rss.channel.item[i]['itunes:duration'].$t);
 
             if (duration < 300 ||
-                json.rss.channel.item[i].title.$t.indexOf("Best") >= 0 ||
-                json.rss.channel.item[i].title.$t.indexOf("best") >= 0 ||
+                //json.rss.channel.item[i].title.$t.indexOf("Best") >= 0 ||
+                //json.rss.channel.item[i].title.$t.indexOf("best") >= 0 ||
                 json.rss.channel.item[i].title.$t.indexOf("BONUS") >= 0) {
                 delete json.rss.channel.item[i];
             }
