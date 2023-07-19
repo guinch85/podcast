@@ -1,4 +1,4 @@
-FROM keymetrics/pm2:latest-stretch
+FROM keymetrics/pm2:18-buster
 
 # Bundle APP files
 COPY ./src src/
